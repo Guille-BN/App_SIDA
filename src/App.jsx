@@ -188,7 +188,8 @@ function App() {
   ])
 
   useEffect(() => {
-    fetch('/stats.json')
+    // avoid cached responses by adding a timestamp and using no-store
+    fetch(`/stats.json?ts=${Date.now()}`, { cache: 'no-store' })
       .then((r) => {
         if (!r.ok) throw new Error('stats fetch failed')
         return r.json()
