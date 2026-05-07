@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
 
 const QUESTIONS = [
   {
     id: 1,
-    text: "Tu compañero de equipo te dice que vive con VIH, qué haces?",
+    text: "¿Tu compañero de equipo te dice que vive con VIH, qué haces?",
     options: [
       "Me incomodo",
       "Le pregunto si está bien",
@@ -19,8 +19,8 @@ const QUESTIONS = [
   },
   {
     id: 2,
-    text: "Compartirías una bebida con alguien que tiene VIH?",
-    options: ["Sí", "No", "Tal vez", "No estoy seguro/a"],
+    text: "¿Compartirías una bebida con alguien que tiene VIH?",
+    options: ["Sí", "No", "Tal vez", "No estoy segurx"],
     reveal: [
       "El VIH no se transmite por fluidos salivales en contextos sociales como compartir bebida.",
     ],
@@ -28,21 +28,21 @@ const QUESTIONS = [
   },
   {
     id: 3,
-    text: "Estás en una fiesta y alguien menciona que una persona tiene VIH, qué piensas automáticamente?",
+    text: "¿Estás en una fiesta y alguien menciona que una persona tiene VIH, qué piensas automáticamente?",
     options: [
-      "Lol q mal",
-      "🤣",
-      "A Canelita le huele la cola",
-      "A la roomie de Cris le suda la cola",
+      "No pasa nada",
+      "Me da miedo",
+      "No sé si deba acercarme",
+      "No sé suficiente del tema",
     ],
     reveal: [
       "Evitar juzgar y buscar información confiable ayuda a disminuir el estigma.",
     ],
-    correct: ["No pasa nada", "No sé suficiente del tema"],
+    correct: ["No pasa nada"],
   },
   {
     id: 4,
-    text: "Te sentirías cómodo/a saliendo con alguien que vive con VIH indetectable",
+    text: "Te sentirías cómodx saliendo con alguien que vive con VIH indetectable",
     options: ["Sí", "No", "Tal vez", "No sé qué significa VIH indetectable"],
     reveal: [
       "Indetectable significa que no tiene la suficiente carga viral como para dar positivo en la prueba pero puede seguir transmiiendo el virus.",
@@ -77,7 +77,7 @@ const QUESTIONS = [
     text: "¿Te sentarías junto a una persona con VIH en clase?",
     options: ["Sí", "No", "Me daría nervio", "Depende"],
     reveal: [
-      "Sentarte con alguien con VIH no implica riesgo, si tratas de incluírlos no vas a correr ningún riesgo.",
+      "Sentarte con alguien con VIH no implica riesgo, si tratas de incluirlos no vas a correr ningún riesgo.",
     ],
     correct: ["Sí"],
   },
@@ -86,7 +86,7 @@ const QUESTIONS = [
     text: "Qué harías si escuchas un comentario discriminatorio sobre VIH en un grupo de amigos?",
     options: [
       "Cambiar el tema",
-      "Reírme incómodo/a",
+      "Reírme incómodx",
       "Defender a la persona",
       "No decir nada",
     ],
@@ -144,7 +144,9 @@ function App() {
     setRevealLines(q.reveal);
     setPhase("reveal");
 
-    setTimeout(() => {
+    // start auto-advance timer; store ref so skip can cancel it
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
       if (index + 1 < QUESTIONS.length) {
         setIndex((i) => i + 1);
         setPhase("quiz");
@@ -152,7 +154,24 @@ function App() {
         setPhase("result");
         // no automatic transition to final note; user will click the X to continue
       }
+      timerRef.current = null;
     }, 5200);
+  }
+
+  // ref to hold the reveal timeout id so we can cancel it when skipping
+  const timerRef = useRef(null);
+
+  function skipReveal() {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    if (index + 1 < QUESTIONS.length) {
+      setIndex((i) => i + 1);
+      setPhase("quiz");
+    } else {
+      setPhase("result");
+    }
   }
 
   function restart() {
@@ -164,9 +183,8 @@ function App() {
 
   // campus stats are loaded directly from /stats.json (no Google Sheets parsing)
   const [campusStats, setCampusStats] = useState([
-    { label: "Dudó en compartir comida", pct: 42 },
-    { label: "Cree mitos", pct: 68 },
-    { label: "Buscaría informarse", pct: 31 },
+    { label: "Tiene estigmas", pct: 73 },
+    { label: "Está informadx", pct: 27 }
   ])
 
   useEffect(() => {
@@ -184,7 +202,7 @@ function App() {
   return (
     <div className="app">
       <div className="center">
-        <div className="brand">Lo evitarías?</div>
+        <div className="brand">Antes de juzgar…</div>
 
         {phase === "intro" && (
           <div className="card fade enter">
@@ -239,7 +257,9 @@ function App() {
                 })}
               </div>
             </div>
-            <div className="muted-center">Siguiente pregunta…</div>
+            <div className="muted-center">
+              <button className="skip-btn" onClick={skipReveal}>Siguiente pregunta…</button>
+            </div>
           </div>
         )}
 
