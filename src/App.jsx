@@ -30,7 +30,7 @@ const QUESTIONS = [
     id: 3,
     text: "Estás en una fiesta y alguien menciona que una persona tiene VIH, qué piensas automáticamente?",
     options: [
-      "Lol q mal mal",
+      "Lol q mal",
       "🤣",
       "A Canelita le huele la cola",
       "A la roomie de Cris le suda la cola",
@@ -150,8 +150,7 @@ function App() {
         setPhase("quiz");
       } else {
         setPhase("result");
-
-        setTimeout(() => setPhase("finalNote"), 3000);
+        // no automatic transition to final note; user will click the X to continue
       }
     }, 5200);
   }
@@ -163,74 +162,24 @@ function App() {
     setScore(0);
   }
 
-  // campus stats come from an external source if available.
-  // By default we fall back to a sample local file (`/stats.json`).
+  // campus stats are loaded directly from /stats.json (no Google Sheets parsing)
   const [campusStats, setCampusStats] = useState([
     { label: "Dudó en compartir comida", pct: 42 },
     { label: "Cree mitos", pct: 68 },
     { label: "Buscaría informarse", pct: 31 },
-  ]);
+  ])
 
   useEffect(() => {
-    // Try to load config.json (optional) which may contain { "dataUrl": "..." }
-    async function loadStats() {
-      try {
-        const cfgResp = await fetch("/config.json");
-        let dataUrl = "/stats.json";
-        if (cfgResp.ok) {
-          const cfg = await cfgResp.json();
-          if (cfg && cfg.dataUrl) dataUrl = cfg.dataUrl;
-        }
-
-        const resp = await fetch(dataUrl);
-        if (!resp.ok) throw new Error("stats fetch failed");
-
-        const text = await resp.text();
-
-        // Google Sheets JSON output (gviz) is wrapped, detect and parse
-        if (dataUrl.includes("docs.google.com") && text.startsWith("/*")) {
-          // google returns something like: /*O_o*/\ngoogle.visualization.Query.setResponse(...)
-          const jsonText = text.replace(/^.*setResponse\(|\);?\s*$/g, "");
-          const g = JSON.parse(jsonText);
-          const rows = g.table.rows || [];
-          const parsed = rows.map((r) => ({
-            label: r.c[0]?.v || "",
-            pct: Number(r.c[1]?.v) || 0,
-          }));
-          setCampusStats(parsed);
-          return;
-        }
-
-        // Airtable's API returns {records:[{fields:{label,pct}}]}
-        try {
-          const json = JSON.parse(text);
-          if (Array.isArray(json)) {
-            setCampusStats(json);
-            return;
-          }
-          if (json.records) {
-            const parsed = json.records.map((r) => ({
-              label: r.fields.label || r.fields.Label || "",
-              pct: r.fields.pct || r.fields.Pct || 0,
-            }));
-            setCampusStats(parsed);
-            return;
-          }
-        } catch (e) {
-          // not JSON — fall through
-        }
-
-        // fallback: try parsing as CSV (simple)
-        if (text.includes(",")) {
-          const lines = text.trim().split("\n");
-          const parsed = lines.map((ln) => {
-            const [label, pct] = ln.split(",").map((s) => s.trim());
-            return { label, pct: Number(pct) };
-          });
-          setCampusStats(parsed);
-          return;
-        }
-      } catch (err) {
+    fetch('/stats.json')
+      .then((r) => {
+        if (!r.ok) throw new Error('stats fetch failed')
+        return r.json()
+      })
+      .then((json) => {
+        if (Array.isArray(json)) setCampusStats(json)
+      })
+      .catch((err) => console.warn('Could not load /stats.json, using defaults', err))
+  }, [])
         // keep fallback hardcoded stats
         console.warn("Could not load remote stats, using defaults", err);
       }
@@ -301,8 +250,9 @@ function App() {
         )}
 
         {phase === "result" && (
-          <div className="card result fade enter">
-            <div className="small-muted">Tus respuestas muestran…</div>
+            <div className="card result fade enter">
+              <button className="close-btn" aria-label="Ver nota final" onClick={() => setPhase('finalNote')}>✕</button>
+              <div className="small-muted">Tus respuestas muestran…</div>
             <div className="score-big">{score}% información correcta</div>
             <div className="breakdown">
               <div className="pill">
@@ -332,7 +282,7 @@ function App() {
         {phase === "finalNote" && (
           <div
             className="card final-screen fade enter"
-            style={{ background: "#000", color: "#fff" }}
+              style={{ background: "#000", color: "#fff" }}
           >
             <div
               style={{
