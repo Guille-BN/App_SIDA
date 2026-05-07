@@ -171,6 +171,9 @@
 .question{font-size:20px;font-weight:700;margin-bottom:18px;color:var(--white)}
 .options{display:grid;grid-template-columns:1fr;gap:10px}
 .opt{padding:12px 14px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--white);cursor:pointer;text-align:left}
+.opt[disabled]{cursor:default;opacity:1}
+.opt.highlight{background:rgba(40,167,69,0.12);border-color:rgba(40,167,69,0.35);}
+.opt.incorrect-selected{background:#7f0f0f;border-color:#5c0505;color:#fff}
 .opt.stigma{border-color:rgba(0,0,0,0.16)}
 .opt.correct{border-color:rgba(255,255,255,0.24)}
 .progress{display:flex;justify-content:space-between;margin-top:12px;color:var(--white);font-size:13px}

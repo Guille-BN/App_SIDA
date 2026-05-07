@@ -235,8 +235,23 @@ function App() {
               {revealLines.map((l, i) => (
                 <div key={i}>{l}</div>
               ))}
+              <div style={{height:10}} />
+              {/* show the options with highlights: correct in light green; if user chose an incorrect option, mark it dark red */}
+              <div className="options">
+                {QUESTIONS[index].options.map((o) => {
+                  const last = answers[answers.length - 1]
+                  const isCorrect = QUESTIONS[index].correct.includes(o)
+                  const isSelected = last && last.option === o
+                  const cls = `opt ${isCorrect ? 'correct highlight' : ''} ${isSelected && !isCorrect ? 'incorrect-selected' : ''}`
+                  return (
+                    <button key={o} className={cls} disabled>
+                      {o}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
-            <div className="muted-center">Siguiente en breve…</div>
+            <div className="muted-center">Siguiente pregunta…</div>
           </div>
         )}
 
