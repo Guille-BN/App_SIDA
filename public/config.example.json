@@ -1,0 +1,4 @@
+{
+  "#notes": "Copy this file to public/config.json and set dataUrl to your published Google Sheets or Airtable export URL",
+  "dataUrl": "https://docs.google.com/spreadsheets/d/<<ID>>/gviz/tq?tqx=out:json&sheet=Sheet1"
+}
