@@ -4,37 +4,37 @@ import './App.css'
 const QUESTIONS = [
   {
     id: 1,
-    text: 'Tu compañero de equipo te dice que vive con VIH. ¿Qué haces primero?',
+    text: 'Tu compañero de equipo te dice que vive con VIH, qué haces?',
     options: ['Me incomodo', 'Le pregunto si está bien', 'Me alejo un poco', 'No cambia nada'],
     reveal: ['Preguntar con respeto y ofrecer apoyo es lo más útil.', 'La incomodidad no ayuda a la persona.'],
     correct: ['Le pregunto si está bien', 'No cambia nada']
   },
   {
     id: 2,
-    text: '¿Compartirías una bebida con alguien que tiene VIH?',
+    text: 'Compartirías una bebida con alguien que tiene VIH?',
     options: ['Sí', 'No', 'Tal vez', 'No estoy seguro/a'],
     reveal: ['El VIH no se transmite por fluidos salivales en contextos sociales como compartir bebida.'],
     correct: ['Sí']
   },
   {
     id: 3,
-    text: 'Estás en una fiesta y alguien menciona que una persona tiene VIH. ¿Qué piensas automáticamente?',
-    options: ['“Qué fuerte”', '“No pasa nada”', '“Deberían tener cuidado”', '“No sé suficiente del tema”'],
+    text: 'Estás en una fiesta y alguien menciona que una persona tiene VIH, qué piensas automáticamente?',
+    options: ['“Lol q mal”', '“🤣”', '“A Canelita le huele la cola”', '“A la roomie de Cris le suda la cola”'],
     reveal: ['Evitar juzgar y buscar información confiable ayuda a disminuir el estigma.'],
     correct: ['“No pasa nada”', '“No sé suficiente del tema”']
   },
   {
     id: 4,
     text: '¿Te sentirías cómodo/a saliendo con alguien que vive con VIH y es indetectable?',
-    options: ['Sí', 'No', 'Tal vez', 'No entiendo qué significa “indetectable”'],
-    reveal: ['Indetectable = no detectable = no transmisible por vía sexual (U=U).'],
+    options: ['Sí', 'No', 'Tal vez', 'No sé qué significa VIH indetectable'],
+    reveal: ['Indetectable significa que no tiene la suficiente carga viral como para '],
     correct: ['Sí', 'Tal vez']
   },
   {
     id: 5,
-    text: 'Tu roomie tiene VIH. ¿Cambiarías algo en el depa?',
+    text: 'Tu roomie tiene VIH, cambiarías algo en tu vivienda?',
     options: ['Compartiría todo normal', 'Tendría más cuidado', 'Evitaría ciertas cosas', 'Me mudaría'],
-    reveal: ['La convivencia no requiere cambios especiales; el estigma sí puede afectar la relación.'],
+    reveal: ['La convivencia con personas con VIH no requiere cambios especiales, pero el estigma sí puede afectar la relación.'],
     correct: ['Compartiría todo normal']
   },
   {
@@ -75,7 +75,7 @@ const QUESTIONS = [
 ]
 
 function App() {
-  const [phase, setPhase] = useState('intro') // intro, quiz, reveal, result, finalNote
+  const [phase, setPhase] = useState('intro') 
   const [index, setIndex] = useState(0)
   const [answers, setAnswers] = useState([])
   const [revealLines, setRevealLines] = useState([])
@@ -114,7 +114,7 @@ function App() {
         // after showing results briefly, show the final citation screen
         setTimeout(() => setPhase('finalNote'), 3000)
       }
-    }, 1600)
+    }, 3200)
   }
 
   function restart() {
@@ -197,14 +197,12 @@ function App() {
     <div className="app">
       <div className="center">
         <div className="brand">¿Lo evitarías?</div>
-        <div className="subtitle">Responde rápido. Sin pensarlo demasiado.</div>
 
         {phase === 'intro' && (
           <div className="card fade enter">
-            <p className="small-muted">Una app rápida sobre reacciones y estigma</p>
+            <p className="small-muted">Aprende sobre el VIH/SIDA</p>
             <div style={{height:18}} />
             <button className="start-btn" onClick={start}>Empezar</button>
-            <div className="muted-center">Menos de 3 minutos — tarjetas rápidas</div>
           </div>
         )}
 
@@ -226,7 +224,6 @@ function App() {
             </div>
             <div className="progress">
               <div className="small-muted">{index + 1}/{QUESTIONS.length}</div>
-              <div className="small-muted">Responde rápido</div>
             </div>
           </div>
         )}
