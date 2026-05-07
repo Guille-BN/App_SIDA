@@ -154,39 +154,38 @@
 }
 
 :root{
-  --bg:#0b0b0c;
-  --card:#0f1113;
-  --muted:#9aa3a8;
-  --accent:#ff3b30;
+  --bg:#ff3b30; /* AIDS red background */
+  --card:rgba(255,255,255,0.06);
+  --muted:rgba(255,255,255,0.85);
+  --accent:#ffffff; /* white accents/text */
   --white:#ffffff;
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--white);-webkit-font-smoothing:antialiased}
 .app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
 .center{width:100%;max-width:420px}
-.brand{font-weight:800;font-size:20px;text-align:center;margin-bottom:6px}
-.subtitle{text-align:center;color:var(--muted);margin-bottom:18px}
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:14px;padding:28px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
-.start-btn{display:block;width:100%;padding:14px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--white);font-weight:700;font-size:16px;cursor:pointer}
-.start-btn:hover{box-shadow:0 6px 18px rgba(255,59,48,0.08)}
-.question{font-size:20px;font-weight:700;margin-bottom:18px}
+.brand{font-weight:800;font-size:20px;text-align:center;margin-bottom:6px;color:var(--white)}
+.subtitle{text-align:center;color:var(--white);margin-bottom:18px}
+.card{background:rgba(0,0,0,0.08);border-radius:14px;padding:28px;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
+.start-btn{display:block;width:100%;padding:14px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.12);color:var(--white);font-weight:700;font-size:16px;cursor:pointer}
+.start-btn:hover{box-shadow:0 6px 18px rgba(255,255,255,0.06)}
+.question{font-size:20px;font-weight:700;margin-bottom:18px;color:var(--white)}
 .options{display:grid;grid-template-columns:1fr;gap:10px}
-.opt{padding:12px 14px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--white);cursor:pointer;text-align:left}
-.opt.stigma{border-color:rgba(255,59,48,0.16)}
-.opt.correct{border-color:rgba(52,199,89,0.16)}
-.progress{display:flex;justify-content:space-between;margin-top:12px;color:var(--muted);font-size:13px}
-.reveal{margin-top:14px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--muted)}
+.opt{padding:12px 14px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--white);cursor:pointer;text-align:left}
+.opt.stigma{border-color:rgba(0,0,0,0.16)}
+.opt.correct{border-color:rgba(255,255,255,0.24)}
+.progress{display:flex;justify-content:space-between;margin-top:12px;color:var(--white);font-size:13px}
+.reveal{margin-top:14px;padding:12px;border-radius:10px;background:rgba(0,0,0,0.06);color:var(--white)}
 .result{text-align:center}
-.score-big{font-size:36px;font-weight:800;margin:8px 0}
+.score-big{font-size:36px;font-weight:800;margin:8px 0;color:var(--white)}
 .breakdown{display:flex;gap:8px;justify-content:center}
-.pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);font-weight:700}
-.small-muted{color:var(--muted);font-size:13px}
+.pill{padding:8px 12px;border-radius:999px;background:rgba(0,0,0,0.08);font-weight:700;color:var(--white)}
+.small-muted{color:var(--white);font-size:13px}
 .stats{margin-top:16px;text-align:left}
-.stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.02);}
-.continue{margin-top:18px;padding:10px 14px;border-radius:10px;background:var(--accent);border:none;color:var(--white);font-weight:700;cursor:pointer}
-.scorebar{height:10px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-top:12px}
-.scorefill{height:100%;background:linear-gradient(90deg,#38ef7d,#11998e);width:0}
-.muted-center{text-align:center;color:var(--muted);font-size:13px;margin-top:8px}
+.stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.06);}
+.continue{margin-top:18px;padding:10px 14px;border-radius:10px;background:var(--white);border:none;color:var(--bg);font-weight:700;cursor:pointer}
+.scorebar{height:10px;background:rgba(255,255,255,0.12);border-radius:10px;overflow:hidden;margin-top:12px}
+.scorefill{height:100%;background:linear-gradient(90deg,#ffffff,#ffffff);width:0}
+.muted-center{text-align:center;color:var(--white);font-size:13px;margin-top:8px}
 
 /* small animations */
 .fade{transition:opacity .28s ease,transform .28s ease}

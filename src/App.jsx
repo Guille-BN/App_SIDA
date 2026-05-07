@@ -4,61 +4,78 @@ import './App.css'
 const QUESTIONS = [
   {
     id: 1,
-    text: 'Tu amigo te dice que vive con VIH.',
-    reveal: [
-      'El VIH no se transmite por convivencia.',
-      'El rechazo social sí afecta la salud mental.'
-    ],
-    // 'Buscaría informarme' is considered the information-forward answer
-    correct: ['Buscaría informarme', 'No cambiaría nada']
+    text: 'Tu compañero de equipo te dice que vive con VIH. ¿Qué haces primero?',
+    options: ['Me incomodo', 'Le pregunto si está bien', 'Me alejo un poco', 'No cambia nada'],
+    reveal: ['Preguntar con respeto y ofrecer apoyo es lo más útil.', 'La incomodidad no ayuda a la persona.'],
+    correct: ['Le pregunto si está bien', 'No cambia nada']
   },
   {
     id: 2,
-    text: 'Alguien con VIH te ofrece comida en una reunión.',
-    reveal: [
-      'No hay riesgo de transmisión por compartir comida.',
-      'Evitar algo por miedo refuerza el estigma.'
-    ],
-    correct: ['No cambiaría nada', 'Buscaría informarme']
+    text: '¿Compartirías una bebida con alguien que tiene VIH?',
+    options: ['Sí', 'No', 'Tal vez', 'No estoy seguro/a'],
+    reveal: ['El VIH no se transmite por fluidos salivales en contextos sociales como compartir bebida.'],
+    correct: ['Sí']
   },
   {
     id: 3,
-    text: 'Escuchas un rumor sobre la vida privada de alguien con VIH.',
-    reveal: [
-      'Los rumores dañan reputaciones y aumentan la discriminación.',
-      'Preguntar con respeto y no difundir es lo responsable.'
-    ],
-    correct: ['Buscaría informarme', 'No cambiaría nada']
+    text: 'Estás en una fiesta y alguien menciona que una persona tiene VIH. ¿Qué piensas automáticamente?',
+    options: ['“Qué fuerte”', '“No pasa nada”', '“Deberían tener cuidado”', '“No sé suficiente del tema”'],
+    reveal: ['Evitar juzgar y buscar información confiable ayuda a disminuir el estigma.'],
+    correct: ['“No pasa nada”', '“No sé suficiente del tema”']
   },
   {
     id: 4,
-    text: 'Ves que alguien con VIH tiene una relación de pareja estable.',
-    reveal: [
-      'Las personas con VIH pueden llevar relaciones sanas y seguras.',
-      'Desconfiar por estigma genera exclusión.'
-    ],
-    correct: ['No cambiaría nada', 'Buscaría informarme']
+    text: '¿Te sentirías cómodo/a saliendo con alguien que vive con VIH y es indetectable?',
+    options: ['Sí', 'No', 'Tal vez', 'No entiendo qué significa “indetectable”'],
+    reveal: ['Indetectable = no detectable = no transmisible por vía sexual (U=U).'],
+    correct: ['Sí', 'Tal vez']
   },
   {
     id: 5,
-    text: 'Te ofrecen voluntariado con personas que viven con VIH.',
-    reveal: [
-      'Participar reduce prejuicios y fomenta empatía.',
-      'Evitar oportunidades refuerza el aislamiento.'
-    ],
-    correct: ['Buscaría informarme', 'No cambiaría nada']
+    text: 'Tu roomie tiene VIH. ¿Cambiarías algo en el depa?',
+    options: ['Compartiría todo normal', 'Tendría más cuidado', 'Evitaría ciertas cosas', 'Me mudaría'],
+    reveal: ['La convivencia no requiere cambios especiales; el estigma sí puede afectar la relación.'],
+    correct: ['Compartiría todo normal']
+  },
+  {
+    id: 6,
+    text: '¿Crees que todavía existe discriminación hacia personas con VIH?',
+    options: ['Muchísima', 'Un poco', 'Casi no', 'No sé'],
+    reveal: ['La discriminación persiste y tiene efectos en el acceso a servicios y la salud mental.'],
+    correct: ['Muchísima', 'Un poco']
+  },
+  {
+    id: 7,
+    text: '¿Te sentarías junto a una persona con VIH en clase?',
+    options: ['Sí', 'No', 'Me daría nervio', 'Depende'],
+    reveal: ['Sentarse juntos no implica riesgo; los nervios son entendibles pero se pueden superar con información.'],
+    correct: ['Sí', 'Depende']
+  },
+  {
+    id: 8,
+    text: '¿Qué harías si escuchas un comentario discriminatorio sobre VIH en un grupo de amigos?',
+    options: ['Cambiar el tema', 'Reírme incómodo/a', 'Defender a la persona', 'No decir nada'],
+    reveal: ['Intervenir o expresar desacuerdo ayuda a reducir la normalización del estigma.'],
+    correct: ['Defender a la persona', 'Cambiar el tema']
+  },
+  {
+    id: 9,
+    text: '¿Qué palabra asocias primero con VIH?',
+    options: ['Enfermedad', 'Miedo', 'Desinformación', 'Persona'],
+    reveal: ['Asociar con persona y no solo con enfermedad ayuda a humanizar.'],
+    correct: ['Persona', 'Desinformación']
+  },
+  {
+    id: 10,
+    text: '¿Crees que sabes cómo se transmite realmente el VIH?',
+    options: ['Sí, completamente', 'Más o menos', 'Muy poco', 'No realmente'],
+    reveal: ['Compartir información correcta reduce el estigma y protege la salud pública.'],
+    correct: ['Sí, completamente', 'Más o menos']
   }
 ]
 
-const OPTIONS = [
-  'Me alejaría',
-  'No cambiaría nada',
-  'Tendría dudas',
-  'Buscaría informarme'
-]
-
 function App() {
-  const [phase, setPhase] = useState('intro') // intro, quiz, reveal, result
+  const [phase, setPhase] = useState('intro') // intro, quiz, reveal, result, finalNote
   const [index, setIndex] = useState(0)
   const [answers, setAnswers] = useState([])
   const [revealLines, setRevealLines] = useState([])
@@ -94,6 +111,8 @@ function App() {
         setPhase('quiz')
       } else {
         setPhase('result')
+        // after showing results briefly, show the final citation screen
+        setTimeout(() => setPhase('finalNote'), 3000)
       }
     }, 1600)
   }
@@ -193,7 +212,7 @@ function App() {
           <div className="card fade enter">
             <div className="question">{QUESTIONS[index].text}</div>
             <div className="options">
-              {OPTIONS.map((o) => {
+              {QUESTIONS[index].options.map((o) => {
                 return (
                   <button
                     key={o}
@@ -246,6 +265,17 @@ function App() {
             </div>
 
             <button className="continue" onClick={restart}>Volver a intentar</button>
+          </div>
+        )}
+
+        {phase === 'finalNote' && (
+          <div className="card final-screen fade enter" style={{background:'#000',color:'#fff'}}>
+            <div style={{fontWeight:700,fontSize:18,textAlign:'center',marginBottom:12}}>En México cada 3 de cada 10 personas con VIH evitan usar servicios de salud por miedo a la discriminación.</div>
+            <div style={{textAlign:'center',fontSize:13,opacity:0.85}}>Gobierno de México, 2020</div>
+            <div style={{height:18}} />
+            <div style={{display:'flex',gap:8,justifyContent:'center'}}>
+              <button className="start-btn" onClick={restart}>Volver a empezar</button>
+            </div>
           </div>
         )}
       </div>
