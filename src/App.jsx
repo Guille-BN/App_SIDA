@@ -42,7 +42,7 @@ const QUESTIONS = [
   },
   {
     id: 4,
-    text: "Te sentirías cómodx saliendo con alguien que vive con VIH indetectable",
+    text: "¿Te sentirías cómodx saliendo con alguien que vive con VIH indetectable",
     options: ["Sí", "No", "Tal vez", "No sé qué significa VIH indetectable"],
     reveal: [
       "Indetectable significa que no tiene la suficiente carga viral como para dar positivo en la prueba pero puede seguir transmiiendo el virus.",
@@ -51,7 +51,7 @@ const QUESTIONS = [
   },
   {
     id: 5,
-    text: "Tu roomie tiene VIH, cambiarías algo en tu vivienda?",
+    text: "Si tu roomie tiene VIH, ¿cambiarías algo en tu vivienda?",
     options: [
       "Compartiría todo normal",
       "Tendría más cuidado",
@@ -65,7 +65,7 @@ const QUESTIONS = [
   },
   {
     id: 6,
-    text: "Crees que todavía existe discriminación hacia personas con VIH?",
+    text: "¿Crees que todavía existe discriminación hacia personas con VIH?",
     options: ["Mucha", "Poca", "Casi no", "No sé"],
     reveal: [
       "La discriminación persiste y sigue teniendo efectos en cómo viven su vida.",
@@ -83,7 +83,7 @@ const QUESTIONS = [
   },
   {
     id: 8,
-    text: "Qué harías si escuchas un comentario discriminatorio sobre VIH en un grupo de amigos?",
+    text: "¿TuQué harías si escuchas un comentario discriminatorio sobre VIH en un grupo de amigos?",
     options: [
       "Cambiar el tema",
       "Reírme incómodx",
@@ -95,7 +95,7 @@ const QUESTIONS = [
   },
   {
     id: 9,
-    text: "Qué palabra asocias primero con VIH?",
+    text: "¿Qué palabra asocias primero con VIH?",
     options: ["Enfermedad", "Miedo", "Desinformación", "Persona"],
     reveal: [
       "Asociar con persona y no solo con enfermedad ayuda a humanizar a quienes padecen VIH.",
@@ -104,7 +104,7 @@ const QUESTIONS = [
   },
   {
     id: 10,
-    text: "Crees que sabes cómo se transmite realmente el VIH?",
+    text: "¿Crees que sabes cómo se transmite realmente el VIH?",
     options: ["Sí", "Más o menos", "Muy poco", "No realmente"],
     reveal: [
       "Por medio de contacto sexual sin protección y de madre a hijo, así como transfusiones o jeringas con sangre infectada",
