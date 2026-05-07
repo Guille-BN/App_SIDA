@@ -180,12 +180,6 @@ function App() {
       })
       .catch((err) => console.warn('Could not load /stats.json, using defaults', err))
   }, [])
-        // keep fallback hardcoded stats
-        console.warn("Could not load remote stats, using defaults", err);
-      }
-    }
-    loadStats();
-  }, []);
 
   return (
     <div className="app">
