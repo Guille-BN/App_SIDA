@@ -19,15 +19,15 @@ const QUESTIONS = [
   {
     id: 3,
     text: 'Estás en una fiesta y alguien menciona que una persona tiene VIH, qué piensas automáticamente?',
-    options: ['“Lol q mal”', '“🤣”', '“A Canelita le huele la cola”', '“A la roomie de Cris le suda la cola”'],
+    options: ['Lol q mal', '🤣', 'A Canelita le huele la cola', 'A la roomie de Cris le suda la cola'],
     reveal: ['Evitar juzgar y buscar información confiable ayuda a disminuir el estigma.'],
-    correct: ['“No pasa nada”', '“No sé suficiente del tema”']
+    correct: ['No pasa nada', 'No sé suficiente del tema']
   },
   {
     id: 4,
-    text: '¿Te sentirías cómodo/a saliendo con alguien que vive con VIH y es indetectable?',
+    text: 'Te sentirías cómodo/a saliendo con alguien que vive con VIH indetectable',
     options: ['Sí', 'No', 'Tal vez', 'No sé qué significa VIH indetectable'],
-    reveal: ['Indetectable significa que no tiene la suficiente carga viral como para '],
+    reveal: ['Indetectable significa que no tiene la suficiente carga viral como para dar positivo en la prueba pero puede seguir transmiiendo el virus.'],
     correct: ['Sí', 'Tal vez']
   },
   {
@@ -39,38 +39,38 @@ const QUESTIONS = [
   },
   {
     id: 6,
-    text: '¿Crees que todavía existe discriminación hacia personas con VIH?',
-    options: ['Muchísima', 'Un poco', 'Casi no', 'No sé'],
-    reveal: ['La discriminación persiste y tiene efectos en el acceso a servicios y la salud mental.'],
-    correct: ['Muchísima', 'Un poco']
+    text: 'Crees que todavía existe discriminación hacia personas con VIH?',
+    options: ['Mucha', 'Poca', 'Casi no', 'No sé'],
+    reveal: ['La discriminación persiste y sigue teniendo efectos en cómo viven su vida.'],
+    correct: ['Mucha']
   },
   {
     id: 7,
     text: '¿Te sentarías junto a una persona con VIH en clase?',
     options: ['Sí', 'No', 'Me daría nervio', 'Depende'],
-    reveal: ['Sentarse juntos no implica riesgo; los nervios son entendibles pero se pueden superar con información.'],
-    correct: ['Sí', 'Depende']
+    reveal: ['Sentarte con alguien con VIH no implica riesgo, si tratas de incluírlos no vas a correr ningún riesgo.'],
+    correct: ['Sí']
   },
   {
     id: 8,
-    text: '¿Qué harías si escuchas un comentario discriminatorio sobre VIH en un grupo de amigos?',
+    text: 'Qué harías si escuchas un comentario discriminatorio sobre VIH en un grupo de amigos?',
     options: ['Cambiar el tema', 'Reírme incómodo/a', 'Defender a la persona', 'No decir nada'],
-    reveal: ['Intervenir o expresar desacuerdo ayuda a reducir la normalización del estigma.'],
-    correct: ['Defender a la persona', 'Cambiar el tema']
+    reveal: ['No debemos normalizar el estigma hacia las personas con VIH.'],
+    correct: ['Defender a la persona']
   },
   {
     id: 9,
-    text: '¿Qué palabra asocias primero con VIH?',
+    text: 'Qué palabra asocias primero con VIH?',
     options: ['Enfermedad', 'Miedo', 'Desinformación', 'Persona'],
-    reveal: ['Asociar con persona y no solo con enfermedad ayuda a humanizar.'],
+    reveal: ['Asociar con persona y no solo con enfermedad ayuda a humanizar a quienes padecen VIH.'],
     correct: ['Persona', 'Desinformación']
   },
   {
     id: 10,
-    text: '¿Crees que sabes cómo se transmite realmente el VIH?',
-    options: ['Sí, completamente', 'Más o menos', 'Muy poco', 'No realmente'],
-    reveal: ['Compartir información correcta reduce el estigma y protege la salud pública.'],
-    correct: ['Sí, completamente', 'Más o menos']
+    text: 'Crees que sabes cómo se transmite realmente el VIH?',
+    options: ['Sí', 'Más o menos', 'Muy poco', 'No realmente'],
+    reveal: ['Por medio de contacto sexual sin protección y de madre a hijo, así como transfusiones o jeringas con sangre infectada'],
+    correct: ['Sí']
   }
 ]
 
@@ -104,17 +104,17 @@ function App() {
     setAnswers((s) => [...s, item])
     setRevealLines(q.reveal)
     setPhase('reveal')
-    // after a short delay, proceed
+    
     setTimeout(() => {
       if (index + 1 < QUESTIONS.length) {
         setIndex((i) => i + 1)
         setPhase('quiz')
       } else {
         setPhase('result')
-        // after showing results briefly, show the final citation screen
+        
         setTimeout(() => setPhase('finalNote'), 3000)
       }
-    }, 3200)
+    }, 5200)
   }
 
   function restart() {
@@ -196,7 +196,7 @@ function App() {
   return (
     <div className="app">
       <div className="center">
-        <div className="brand">¿Lo evitarías?</div>
+        <div className="brand">Lo evitarías?</div>
 
         {phase === 'intro' && (
           <div className="card fade enter">
@@ -267,7 +267,7 @@ function App() {
             </div>
 
             <div className="stats">
-              <div className="small-muted">¿Quieres ver cómo respondería el campus?</div>
+              <div className="small-muted">Respuestas de otros compañeros</div>
               {campusStats.map((s) => (
                 <div key={s.label} className="stat-row">
                   <div className="small-muted">{s.label}</div>
